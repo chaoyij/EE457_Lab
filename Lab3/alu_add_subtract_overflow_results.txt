@@ -1,0 +1,59 @@
+ALU add/subtract results
+ 
+Test # = 1 
+Inputs: 	 	 A = 0001 	 B = 0010 	 R = 0011 	    ADD operation
+As signed numbers, 	 A = 1 	 B = 2 	 R = 3 	 OVERFLOW = 0 
+   Signed sum fits in 4 bits.                             
+As unsigned numbers, 	 A = 1 	 B = 2 	 R = 3 	 COUT = 0 
+   Unsigned sum fits in 4 bits.                           
+ 
+Test # = 2 
+Inputs: 	 	 A = 1110 	 B = 1101 	 R = 1011 	    ADD operation
+As signed numbers, 	 A = -2 	 B = -3 	 R = -5 	 OVERFLOW = 0 
+   Signed sum fits in 4 bits.                             
+As unsigned numbers, 	 A = 14 	 B = 13 	 R = 11 	 COUT = 1 
+   Unsigned sum does not fit in 4 bits.                   
+ 
+Test # = 3 
+Inputs: 	 	 A = 0111 	 B = 0110 	 R = 1101 	    ADD operation
+As signed numbers, 	 A = 7 	 B = 6 	 R = -3 	 OVERFLOW = 1 
+   Signed sum does not fit in 4 bits.                     
+As unsigned numbers, 	 A = 7 	 B = 6 	 R = 13 	 COUT = 0 
+   Unsigned sum fits in 4 bits.                           
+ 
+Test # = 4 
+Inputs: 	 	 A = 1010 	 B = 1001 	 R = 0011 	    ADD operation
+As signed numbers, 	 A = -6 	 B = -7 	 R = 3 	 OVERFLOW = 1 
+   Signed sum does not fit in 4 bits.                     
+As unsigned numbers, 	 A = 10 	 B = 9 	 R = 3 	 COUT = 1 
+   Unsigned sum does not fit in 4 bits.                   
+ 
+Test # = 5 
+Inputs: 	 	 A = 0010 	 B = 0001 	 R = 0001 	    SUB operation
+As signed numbers, 	 A = 2 	 B = 1 	 R = 1 	 OVERFLOW = 0 
+   Signed difference fits in 4 bits.                      
+As unsigned numbers, 	 A = 2 	 B = 1 	 R = 1 	 COUT = 1 
+   Unsigned difference is positive and is representable.  
+ 
+Test # = 6 
+Inputs: 	 	 A = 0001 	 B = 0010 	 R = 1111 	    SUB operation
+As signed numbers, 	 A = 1 	 B = 2 	 R = -1 	 OVERFLOW = 0 
+   Signed difference fits in 4 bits.                      
+As unsigned numbers, 	 A = 1 	 B = 2 	 R = 15 	 COUT = 0 
+   Unsigned difference is negative and is unrepresentable.
+ 
+Test # = 7 
+Inputs: 	 	 A = 1001 	 B = 0111 	 R = 0010 	    SUB operation
+As signed numbers, 	 A = -7 	 B = 7 	 R = 2 	 OVERFLOW = 1 
+   Signed difference does not fit in 4 bits.              
+As unsigned numbers, 	 A = 9 	 B = 7 	 R = 2 	 COUT = 1 
+   Unsigned difference is positive and is representable.  
+ 
+Test # = 8 
+Inputs: 	 	 A = 0111 	 B = 1001 	 R = 1110 	    SUB operation
+As signed numbers, 	 A = 7 	 B = -7 	 R = -2 	 OVERFLOW = 1 
+   Signed difference does not fit in 4 bits.              
+As unsigned numbers, 	 A = 7 	 B = 9 	 R = 14 	 COUT = 0 
+   Unsigned difference is negative and is unrepresentable.
+ 
+All tests concluded!
