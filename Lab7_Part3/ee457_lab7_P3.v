@@ -142,7 +142,7 @@ pipe_reg2 ID_EX1(.rstb(RSTB),.clk(CLK),.en(1'b1),
 
 assign PRIORITY = (EX1_XMEX1) & (EX2_SUB3 | EX2_MOV); // Priority between forwarding help from the EX2 stage and the WB stage
 assign FORW1 = (PRIORITY) | (EX1_XMEX2 & WB_WRITE); // Decide whether to receive any forwarding help or carry EX1_XD
-assign EX1_PRIO_XD = PRIORITY ? EX2_XD : WB_RD; // EX1_PRIO_XD = The output the mux controlled by the selection line PRIORITY
+assign EX1_PRIO_XD = PRIORITY ? EX2_ADDER_IN : WB_RD; // EX1_PRIO_XD = The output the mux controlled by the selection line PRIORITY
 assign EX1_ADDER_IN = FORW1 ? EX1_PRIO_XD : EX1_XD; // EX1_ADDER_IN = The output the forwarding mux which is the input to the adder in EX1
 assign EX1_ADDER_OUT = EX1_ADDER_IN + (-3); // Subtract 3
 assign SKIP1 = EX1_MOV | EX1_ADD4;          // Decide whether to skip the subtractor result
@@ -160,8 +160,8 @@ assign EX1_XD_OUT = SKIP1 ? EX1_ADDER_IN : EX1_ADDER_OUT; // mux to skip the sub
 pipe_reg2 EX1_EX2(.rstb(RSTB),.clk(CLK),.en(1'b1),
 	.vec16_in1(16'h0000),.vec16_in2(16'h0000),.vec16_in3(EX1_XD_OUT),.vec16_out1(),.vec16_out2(),.vec16_out3(EX2_XD),
 	.vec4_in1(EX1_RA),.vec4_in2(4'b0000),.vec4_out1(EX2_RA),.vec4_out2(),
-	.bit_in1(EX1_MOV),.bit_in2(EX1_SUB3),.bit_in3(EX1_ADD4),.bit_in4(EX1_ADD1),.bit_in5(complete_it),.bit_in6(1'b0),
-	.bit_out1(EX2_MOV),.bit_out2(EX2_SUB3),.bit_out3(EX2_ADD4),.bit_out4(EX2_ADD1),.bit_out5(complete_it),.bit_out6(),
+	.bit_in1(EX1_MOV),.bit_in2(EX1_SUB3),.bit_in3(EX1_ADD4),.bit_in4(EX1_ADD1),.bit_in5(EX1_XMEX1),.bit_in6(1'b0),
+	.bit_out1(EX2_MOV),.bit_out2(EX2_SUB3),.bit_out3(EX2_ADD4),.bit_out4(EX2_ADD1),.bit_out5(EX2_XMEX1),.bit_out6(),
 	.instr_in(EX1_INSTR),.instr_out(EX2_INSTR)
 	);    
 //--EX2-----------------------------------------------------------------
@@ -188,7 +188,7 @@ assign EX2_WRITE = EX2_MOV | EX2_SUB3 | EX2_ADD4 | EX2_ADD1;  // Produce one sig
 pipe_reg2 EX2_WB(.rstb(RSTB),.clk(CLK),.en(1'b1),
 	.vec16_in1(16'h0000),.vec16_in2(16'h0000),.vec16_in3(EX2_XD_OUT),.vec16_out1(),.vec16_out2(),.vec16_out3(WB_RD),
 	.vec4_in1(EX2_RA),.vec4_in2(4'b0000),.vec4_out1(WB_RA),.vec4_out2(),
-	.bit_in1(complete_it),.bit_in2(1'b0),.bit_in3(1'b0),.bit_in4(1'b0),.bit_in5(1'b0),.bit_in6(1'b0),
+	.bit_in1(EX2_WRITE),.bit_in2(1'b0),.bit_in3(1'b0),.bit_in4(1'b0),.bit_in5(1'b0),.bit_in6(1'b0),
 	.bit_out1(WB_WRITE),.bit_out2(),.bit_out3(),.bit_out4(),.bit_out5(),.bit_out6(),
 	.instr_in(EX2_INSTR),.instr_out(WB_INSTR)
 	);
